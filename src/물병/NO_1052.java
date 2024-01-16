@@ -12,7 +12,7 @@ public class NO_1052 {
             var st = new StringTokenizer(br.readLine(), " ");
             var water = Integer.parseInt(st.nextToken());
             var bitCnt = Integer.bitCount(water);
-            var maxNum = water;
+            var remaining = water;
             var bottle = Integer.parseInt(st.nextToken());
             int check = 2 << 23;
             var answer = 0;
@@ -21,13 +21,13 @@ public class NO_1052 {
                     if ((check & water) != 0) {
                         if (bottle == 1) break;
                         if (bottle > 1) {
-                            maxNum -= check;
+                            remaining -= check;
                             bottle--;
                         }
                     }
                     check = check >> 1;
                 }
-                answer = (check << 1) - maxNum;
+                answer = (check << 1) - remaining;
             }
             bw.write(String.valueOf(answer));
         }
