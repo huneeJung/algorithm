@@ -14,7 +14,7 @@ public class NO_1052 {
             var bitCnt = Integer.bitCount(water);
             var maxNum = water;
             var bottle = Integer.parseInt(st.nextToken());
-            int check = 1 << 24;
+            int check = 2 << 23;
             var answer = 0;
             if (bottle < bitCnt) {
                 while (check != 0) {
