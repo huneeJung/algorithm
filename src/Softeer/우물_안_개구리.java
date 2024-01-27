@@ -1,8 +1,8 @@
 package Softeer;
 
 import java.io.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class 우물_안_개구리 {
@@ -15,18 +15,29 @@ public class 우물_안_개구리 {
             StringTokenizer st = new StringTokenizer(br.readLine(), " ");
             int people = Integer.parseInt(st.nextToken());
             int relationship = Integer.parseInt(st.nextToken());
-            Set<Integer> s = new HashSet<>();
+            List<int[]> list = new ArrayList<>();
             st = new StringTokenizer(br.readLine(), " ");
             for (int i = 0; i < people; i++) {
-                s.add(Integer.parseInt(st.nextToken()));
+                list.add(new int[]{Integer.parseInt(st.nextToken()), 1});
             }
             for (int i = 0; i < relationship; i++) {
                 st = new StringTokenizer(br.readLine(), " ");
-                int f1 = Integer.parseInt(st.nextToken());
-                int f2 = Integer.parseInt(st.nextToken());
-                s.remove(f1);
+                int[] weight1 = list.get(Integer.parseInt(st.nextToken()) - 1);
+                int[] weight2 = list.get(Integer.parseInt(st.nextToken()) - 1);
+                if (weight1[0] > weight2[0]) {
+                    weight2[1] = 0;
+                } else if (weight1[0] < weight2[0]) {
+                    weight1[1] = 0;
+                } else {
+                    weight1[1] = 0;
+                    weight2[1] = 0;
+                }
             }
-            bw.write(String.valueOf(s.size()));
+            int answer = 0;
+            for (int[] p : list) {
+                if (p[1] == 1) answer++;
+            }
+            bw.write(String.valueOf(answer));
         }
     }
 }
