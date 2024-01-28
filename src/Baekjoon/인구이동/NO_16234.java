@@ -1,4 +1,4 @@
-package 인구이동;
+package Baekjoon.인구이동;
 
 import java.io.*;
 import java.util.*;

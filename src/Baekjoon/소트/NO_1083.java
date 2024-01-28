@@ -1,4 +1,4 @@
-package 소트;
+package Baekjoon.소트;
 
 import java.io.*;
 import java.util.ArrayList;

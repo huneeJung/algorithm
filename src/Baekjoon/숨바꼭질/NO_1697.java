@@ -1,4 +1,4 @@
-package 숨바꼭질;
+package Baekjoon.숨바꼭질;
 
 import java.io.*;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package 배;
+package Baekjoon.배;
 
 import java.io.*;
 import java.util.ArrayList;

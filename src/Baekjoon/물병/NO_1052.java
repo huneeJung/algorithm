@@ -1,4 +1,4 @@
-package 물병;
+package Baekjoon.물병;
 
 import java.io.*;
 import java.util.StringTokenizer;

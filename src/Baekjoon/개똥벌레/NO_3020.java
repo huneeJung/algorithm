@@ -1,4 +1,4 @@
-package 개똥벌레;
+package Baekjoon.개똥벌레;
 
 import java.io.*;
 import java.util.Comparator;

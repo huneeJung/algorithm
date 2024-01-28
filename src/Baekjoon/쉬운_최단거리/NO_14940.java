@@ -1,4 +1,4 @@
-package 쉬운_최단거리;
+package Baekjoon.쉬운_최단거리;
 
 import java.io.*;
 import java.util.LinkedList;

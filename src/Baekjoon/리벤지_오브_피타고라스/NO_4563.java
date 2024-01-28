@@ -1,4 +1,4 @@
-package 리벤지_오브_피타고라스;
+package Baekjoon.리벤지_오브_피타고라스;
 
 import java.io.*;
 

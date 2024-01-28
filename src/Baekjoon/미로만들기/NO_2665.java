@@ -1,4 +1,4 @@
-package 미로만들기;
+package Baekjoon.미로만들기;
 
 import java.io.*;
 import java.util.LinkedList;
