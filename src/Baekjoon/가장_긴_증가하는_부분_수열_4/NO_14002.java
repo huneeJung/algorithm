@@ -24,7 +24,7 @@ public class NO_14002 {
                     }
                     if (numArr[i] > numArr[j]) {
                         var str = dp[j] + numArr[i] + " ";
-                        if (dp[i].length() < str.length()) {
+                        if (dp[i].split(" ").length < str.split(" ").length) {
                             dp[i] = str;
                         }
                     }
@@ -32,7 +32,7 @@ public class NO_14002 {
             }
             String answer = "";
             for (int i = 0; i < len; i++) {
-                if (answer.length() < dp[i].length()) {
+                if (answer.split(" ").length <= dp[i].split(" ").length) {
                     answer = dp[i];
                 }
             }
