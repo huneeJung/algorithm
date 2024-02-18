@@ -8,66 +8,68 @@ import java.util.StringTokenizer;
 public class NO_18428 {
     private static int n;
     private static String[][] map;
-    private static boolean[][] visited;
-    private static List<int[]> studentList;
+    private static List<int[]> teacherList = new ArrayList<>();
+    private static boolean isOK = false;
     private static int[] dx = {1, -1, 0, 0};
     private static int[] dy = {0, 0, 1, -1};
 
     public static void main(String[] args) throws IOException {
         try (
                 var br = new BufferedReader(new InputStreamReader(System.in));
-                var bw = new BufferedWriter(new OutputStreamWriter(System.out));
+                var bw = new BufferedWriter(new OutputStreamWriter(System.out))
         ) {
             n = Integer.parseInt(br.readLine());
             map = new String[n][n];
-            visited = new boolean[n][n];
-            studentList = new ArrayList<>();
             for (int i = 0; i < n; i++) {
-                var st = new StringTokenizer(br.readLine(), " ");
+                var st = new StringTokenizer(br.readLine());
                 for (int j = 0; j < n; j++) {
                     map[i][j] = st.nextToken();
-                    if (map[i][j].equals("S")) {
-                        studentList.add(new int[]{i, j});
+                    if (map[i][j].equals("T")) {
+                        teacherList.add(new int[]{i, j});
                     }
                 }
             }
-            bw.write(bfs());
+            dfs(0);
+            if (isOK) {
+                bw.write("YES");
+            } else {
+                bw.write("NO");
+            }
         }
     }
 
-    private static String bfs() {
-        var obstacleCnt = 0;
-        for (int[] studentLocation : studentList) {
-            for (int i = 0; i < 4; i++) {
-                var flag = false;
-                var x = studentLocation[0];
-                var y = studentLocation[1];
-                while (true) {
-                    x += dx[i];
-                    y += dy[i];
-                    if (x < 0 || y < 0 || x > n - 1 || y > n - 1 || visited[x][y]) break;
-                    if (map[x][y].equals("T")) {
-                        if (map[x - dx[i]][y - dy[i]].equals("S")) return "NO";
-                        x = studentLocation[0];
-                        y = studentLocation[1];
-                        while (true) {
-                            x += dx[i];
-                            y += dy[i];
-                            if (x < 0 || y < 0 || x > n - 1 || y > n - 1) break;
-                            if (map[x][y].equals("X")) {
-                                visited[x][y] = true;
-                            }
-                        }
-                        flag = true;
-                        break;
-                    }
-                }
-                if (flag) {
-                    obstacleCnt++;
+    private static void dfs(int depth) {
+        if (depth == 3) {
+            bfs();
+            return;
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (map[i][j].equals("X")) {
+                    map[i][j] = "O";
+                    dfs(depth + 1);
+                    if (isOK) return;
+                    map[i][j] = "X";
                 }
             }
         }
-        System.out.println(obstacleCnt);
-        return obstacleCnt <= 3 ? "YES" : "NO";
+    }
+
+    private static void bfs() {
+        for (int[] teacherLocation : teacherList) {
+            for (int i = 0; i < 4; i++) {
+                var x = teacherLocation[0];
+                var y = teacherLocation[1];
+                while (true) {
+                    x += dx[i];
+                    y += dy[i];
+                    if (x < 0 || y < 0 || x >= n || y >= n || map[x][y].equals("O")) break;
+                    if (map[x][y].equals("S")) {
+                        return;
+                    }
+                }
+            }
+        }
+        isOK = true;
     }
 }
