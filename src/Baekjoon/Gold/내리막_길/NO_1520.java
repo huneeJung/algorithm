@@ -29,12 +29,12 @@ public class NO_1520 {
                     map[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
-            int roadCnt = bfs();
+            bfs();
             bw.write(String.valueOf(visited[xSize - 1][ySize - 1]));
         }
     }
 
-    private static int bfs() {
+    private static void bfs() {
         Queue<Location> q = new PriorityQueue<>((a, b) -> b.cost - a.cost);
         q.add(new Location(0, 0, map[0][0]));
         visited[0][0] = 1;
@@ -54,7 +54,6 @@ public class NO_1520 {
                 visited[x][y] += visited[location.x][location.y];
             }
         }
-        return roadCnt;
     }
 }
 
