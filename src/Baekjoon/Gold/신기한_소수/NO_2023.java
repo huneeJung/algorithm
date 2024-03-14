@@ -1,41 +1,35 @@
 package Baekjoon.Gold.신기한_소수;
 
 import java.io.*;
+import java.util.*;
 
-public class NO_2023 {
+public class NO_2023{
     private static StringBuilder sb = new StringBuilder();
-
-    public static void main(String[] args) throws IOException {
-        try (
+    private static int length;
+    public static void main(String [] args)throws IOException{
+        try(
                 var br = new BufferedReader(new InputStreamReader(System.in));
                 var bw = new BufferedWriter(new OutputStreamWriter(System.out))
-        ) {
-            var n = Integer.parseInt(br.readLine());
-            int size = (int) Math.pow(10, n);
-            for (int i = (int) Math.pow(10, n - 1); i < size; i++) {
-                var str = String.valueOf(i);
-                var flag = true;
-                for (int j = str.length(); j > 0; j--) {
-                    if (!search(Integer.parseInt(str.substring(0, j)))) {
-                        flag = false;
-                        break;
-                    }
-                }
-                if (flag) sb.append(i).append("\n");
-            }
+        ){
+            length = Integer.parseInt(br.readLine());
+            dfs(1,0);
             bw.write(sb.toString());
         }
     }
-
-    private static boolean search(int num) {
-        if (num < 2) return false;
-        var flag = true;
-        for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) {
-                flag = false;
-                break;
-            }
+    public static void dfs(int len, int n){
+        if(len > length){
+            sb.append(n).append("\n");
+            return;
         }
-        return flag;
+        for(int i = 1 ; i < 10 ; i++){
+            var num = n *10 + i;
+            if(num>=2&&check(num)) dfs(len+1,num);
+        }
+    }
+    public static boolean check(int num){
+        for(int i = 2 ; i <= Math.sqrt(num) ; i++){
+            if(num%i==0) return false;
+        }
+        return true;
     }
 }
