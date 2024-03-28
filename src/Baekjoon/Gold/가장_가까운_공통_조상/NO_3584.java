@@ -5,7 +5,7 @@ import java.util.*;
 
 public class NO_3584 {
 
-    private static Map<Integer, List<Integer>> map = new HashMap<>();
+    private static Map<Integer, Integer> map;
 
     public static void main(String[] args) throws IOException {
         try (
@@ -14,27 +14,23 @@ public class NO_3584 {
         ) {
             var caseCnt = Integer.parseInt(br.readLine());
             while (caseCnt > 0) {
+                map = new HashMap<>();
                 var cnt = Integer.parseInt(br.readLine());
                 for (int i = 0; i < cnt - 1; i++) {
                     var st = new StringTokenizer(br.readLine(), " ");
                     var num1 = Integer.parseInt(st.nextToken());
                     var num2 = Integer.parseInt(st.nextToken());
-                    if (map.containsKey(num2)) {
-                        var list = map.get(num2);
-                        list.add(num1);
-                    } else {
-                        var list = new ArrayList<Integer>();
-                        list.add(num1);
-                        map.put(num2, list);
-                    }
+                    map.put(num2, num1);
                 }
                 var st = new StringTokenizer(br.readLine(), " ");
                 var num1 = Integer.parseInt(st.nextToken());
                 var num2 = Integer.parseInt(st.nextToken());
-                List<Integer> list1 = new ArrayList<>();
-                List<Integer> list2 = new ArrayList<>();
+                List<Integer> list1 = new ArrayList<>(num1);
+                List<Integer> list2 = new ArrayList<>(num2);
                 dfs(list1, num1);
                 dfs(list2, num2);
+                list1.add(0, num1);
+                list2.add(0, num2);
                 var exist = false;
                 var answer = 0;
                 for (int num1_ : list1) {
@@ -50,6 +46,7 @@ public class NO_3584 {
                     }
                 }
                 bw.write(String.valueOf(answer));
+                bw.newLine();
                 caseCnt--;
             }
         }
@@ -59,10 +56,8 @@ public class NO_3584 {
         if (!map.containsKey(num)) {
             return;
         }
-        var parentList = map.get(num);
-        for (int parent : parentList) {
-            list.add(parent);
-            dfs(list, parent);
-        }
+        var parent = map.get(num);
+        list.add(parent);
+        dfs(list, parent);
     }
 }
