@@ -3,56 +3,44 @@ package Baekjoon.Gold.컵라면;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class NO_1781 {
     public static void main(String[] args) throws IOException {
         try (
                 var br = new BufferedReader(new InputStreamReader(System.in));
-                var bw = new BufferedWriter(new OutputStreamWriter(System.out))
+                var bw = new BufferedWriter(new OutputStreamWriter(System.out));
         ) {
             var taskCnt = Integer.parseInt(br.readLine());
-            List<Task> list = new ArrayList<>();
-            for (int i = 1; i <= taskCnt; i++) {
+            List<Task> taskList = new ArrayList<>();
+            for (int i = 0; i < taskCnt; i++) {
                 var st = new StringTokenizer(br.readLine(), " ");
-                list.add(new Task(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
+                taskList.add(new Task(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
             }
-            list.sort((t1, t2) -> t2.noodleCnt - t1.noodleCnt);
-            int[] indexArr = new int[taskCnt + 1];
-            indexArr[0] = 1;
-            var answer = 0;
-            for (Task task : list) {
-                var deadLine = task.deadLine;
-                var noodleCnt = task.noodleCnt;
-                var flag = false;
-                if (indexArr[deadLine] == 0) {
-                    indexArr[deadLine] = deadLine;
-                    flag = true;
-                } else {
-                    var subDeadLine = indexArr[deadLine] - 1;
-                    while (subDeadLine > 0) {
-                        if (indexArr[subDeadLine] == 0) {
-                            indexArr[subDeadLine] = subDeadLine;
-                            flag = true;
-                            break;
-                        }
-                        if (subDeadLine == 1) break;
-                        indexArr[subDeadLine]--;
-                        indexArr[deadLine] = indexArr[subDeadLine];
-                        var newDeadLine = indexArr[subDeadLine - 1];
-                        if (newDeadLine == 0) {
-                            indexArr[subDeadLine - 1] = subDeadLine - 1;
-                            flag = true;
-                            break;
-                        }
-                        subDeadLine = newDeadLine;
+            taskList.sort((task1, task2) -> {
+                if (task1.deadLine == task2.deadLine) {
+                    return task2.noodleCnt - task1.noodleCnt;
+                }
+                return task1.deadLine - task2.deadLine;
+            });
+            PriorityQueue<Task> q = new PriorityQueue<>((task1, task2) -> task1.noodleCnt - task2.noodleCnt);
+            for (Task task : taskList) {
+                if (q.size() >= task.deadLine) {
+                    var amt = q.peek().noodleCnt;
+                    if (amt < task.noodleCnt) {
+                        q.poll();
+                        q.add(task);
                     }
-                }
-                if (flag) {
-                    answer += noodleCnt;
+                } else {
+                    q.add(task);
                 }
             }
-            bw.write(String.valueOf(answer));
+            var total = 0;
+            while (!q.isEmpty()) {
+                total += q.poll().noodleCnt;
+            }
+            bw.write(String.valueOf(total));
         }
     }
 }
