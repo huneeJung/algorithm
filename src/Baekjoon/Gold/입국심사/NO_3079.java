@@ -19,7 +19,7 @@ public class NO_3079 {
                 if (p1.cnt == 0 && p2.cnt == 0) {
                     return p1.time - p2.time;
                 } else {
-                    return (p1.time * p1.cnt) - (p2.time * p2.cnt);
+                    return (p1.time * p1.cnt + p1.time) - (p2.time * p2.cnt + p2.time);
                 }
             });
             for (int i = 0; i < checkPointCnt; i++) {
@@ -27,17 +27,18 @@ public class NO_3079 {
                 q.add(checkPoint);
             }
 
-            var totalTime = -1;
+            var totalTime = 0;
             while (!q.isEmpty()) {
                 var cp = q.poll();
-                totalTime++;
                 if (cp.time * cp.cnt <= totalTime) {
                     cp.cnt++;
+                    if (cp.time * cp.cnt <= totalTime) totalTime--;
                     if (peopleCnt <= 0) {
                         continue;
                     }
                     peopleCnt--;
                 }
+                totalTime++;
                 q.add(cp);
             }
             bw.write(String.valueOf(totalTime));
