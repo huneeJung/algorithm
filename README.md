@@ -63,7 +63,7 @@
 - 불필요한 객체 생성 방지
 
 ## 📚 참고 자료
-- [바킹독의 실전 알고리즘](https://github.com/encrypted-def/basic-algo-lecture)
+- [바킹독의 실전 알고리즘](https://blog.encrypted.gg/)
 - [백준 온라인 저지](https://www.acmicpc.net/)
 
 ## 💪 TIP
