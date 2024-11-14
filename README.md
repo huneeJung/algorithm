@@ -64,7 +64,6 @@
 
 ## 📚 참고 자료
 - [바킹독의 실전 알고리즘](https://github.com/encrypted-def/basic-algo-lecture)
-- [알고리즘 문제해결전략](http://book.algospot.com/)
 - [백준 온라인 저지](https://www.acmicpc.net/)
 
 ## 💪 TIP
