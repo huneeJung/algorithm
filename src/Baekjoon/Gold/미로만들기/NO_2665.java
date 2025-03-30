@@ -1,14 +1,14 @@
-package Baekjoon.Silver.미로만들기;
+package Baekjoon.Gold.미로만들기;
 
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class NO_2665 {
+    private static final int[] dx = {0, 1, 0, -1};
+    private static final int[] dy = {1, 0, -1, 0};
     private static char[][] map;
     private static int[][] drill;
-    private static int[] dx = {0, 1, 0, -1};
-    private static int[] dy = {1, 0, -1, 0};
 
     public static void main(String[] args) throws IOException {
         try (

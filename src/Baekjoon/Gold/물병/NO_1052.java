@@ -1,4 +1,4 @@
-package Baekjoon.Silver.물병;
+package Baekjoon.Gold.물병;
 
 import java.io.*;
 import java.util.StringTokenizer;

@@ -1,6 +1,7 @@
 package Baekjoon.Silver.두수의_합;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 
@@ -12,27 +13,20 @@ public class NO_3273_RETRY {
         ) {
             var count = Integer.parseInt(br.readLine());
             var st = new StringTokenizer(br.readLine());
-
-            var numbers = new int[count];
+            var arr = new ArrayList<Integer>();
             for (int i = 0; i < count; i++) {
-                numbers[i] = Integer.parseInt(st.nextToken());
+                arr.add(Integer.parseInt(st.nextToken()));
             }
-
             var sum = Integer.parseInt(br.readLine());
+
+            var arrSet = new HashSet<Integer>();
             var result = 0;
-
-            // 중복 확인을 위한 HashSet
-            var seen = new HashSet<Integer>();
-
-            for (int num : numbers) {
-                // sum - num이 이미 처리한 숫자인지 확인
-                if (seen.contains(sum - num)) {
+            for (Integer num1 : arr) {
+                if (arrSet.contains(sum - num1)) {
                     result++;
                 }
-                // 현재 숫자를 HashSet에 추가
-                seen.add(num);
+                arrSet.add(num1);
             }
-
             bw.write(String.valueOf(result));
         }
     }
